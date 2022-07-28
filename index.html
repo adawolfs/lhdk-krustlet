@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="revealjs/dist/reset.css">
+		<link rel="stylesheet" href="revealjs/dist/reveal.css">
+		<link rel="stylesheet" href="revealjs/dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="revealjs/plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    Los contenedores ya estan pasados de moda...
+                </section>
+                <section>
+                    Lo de hoy en dia es desplegar modulos compilados a WebAssembly con Kubernetes!
+                </section>
+                <section>
+                    <img src="img/solomon_hykes_wasi.png" alt="solomon hykes wasi" srcset="">
+                </section>
+				<section>WebAssembly + Kubernetes = Krustlet</section>
+                <section>
+                    <h1>WASM, WAT, WASI</h1>
+                </section>
+                <section>
+                    <section>
+                        <h1>WASM</h1>
+                        <p>WebAssembly</p>
+                    </section>
+                    <section>
+                        <p>
+                            WebAssembly es un conjunto de instrucciones binarias para una <b>maquina virtual de pila</b>.
+                            Fue diseñado para proveer un formato de codigo compilable y portable para otros lenguajes de programacion.
+                        </p>
+                    </section>
+                    <section>
+                        <p>
+                            La maquina de pila de WASM esta diseñada para ser codificada en un formato binario eficinete en tamaño y tiempo de carga.
+                            Tiene como objetivo ejecutar a velocidades nativas, tomando ventaja de las capacidades del hardware disponibles en la mayoria de plataformas.
+                        </p>
+                    </section>
+                    <section>
+                        <p>
+                           WebAssembly describe una esquema de "memoria segura", y ejecucion en "una caja de arena". <br>
+                           Esto significa que ese codigo no puede comunicarse directamente con el Sistema Operativo.
+                           El host necesita proveer un API para acceder a las fuciones del Sitema Operativo.
+                           El host puede limitar lo que la caja de arena puede realizar.
+                           En el mejor de los casos las exepciones son realizas explicitamente.  
+                        </p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>WAT</h1>
+                        <p>WebAssembly Text File</p>
+                    </section>
+                    <section>
+                        <h2>WebAssembly Hello World</h2>
+                        <pre data-id="code-animation"><code class="hljs " data-trim ><script type="text/template">
+                            (module
+                                (import "env" "print_string" (func $print_string (param i32)))
+                                (import "env" "buffer" (memory 1))
+                                (global $start_string (import "env" "start_string") i32)
+                                (global $string_len i32 (i32.const 12))
+                                (data (global.get $start_string) "hello world!")	
+                                (func (export "helloworld")
+                                    (call $print_string (global.get $string_len))
+                                )
+                            )
+                        </script></code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>WASI</h1>
+                        <p>WebAssembly System Interface</p>
+                    </section>
+                    <section>
+                        Es una Interfaz de Sistema para WebAssembly, conformada por colecciones modulares de APIs estandarizadas enfocadas en Seguridad y Portabilidad.
+                        Estas APIs son principalmente para sistemas de archivos, network, graficos, audio y dispositivos de entrada
+                    </section>
+                    <section>
+                        <img src="https://hacks.mozilla.org/files/2019/03/04-04-bitcoin-1-768x396.png" alt="risky-app">
+                    </section>
+                    <section>
+                        <img src="https://hacks.mozilla.org/files/2019/03/04-05-sandbox-1-768x427.png" alt="risky-app">
+                    </section>
+                    <section>
+                        <img src="https://hacks.mozilla.org/files/2019/03/05-01-wasi-1-768x644.png" alt="wasi-core">
+                    </section>
+                    
+                    <section>
+                        <img src="https://hacks.mozilla.org/files/2019/03/05-02-wasi-1-768x385.png" alt="wasi-core">
+                    </section>
+
+                </section>
+                
+                <section>
+                    <img style="max-height: 600px;" src="https://hacks.mozilla.org/files/2019/03/05-05-sec-port-2-768x1082.png" alt="wasi-security-portability">
+                </section>
+
+                <section>
+                    <section>
+                        <h1>WASMTIME</h1>
+                    </section>
+                    <section>
+                        <h1>WASMER</h1>
+                    </section>
+                </section>
+                <section>
+
+                </section>
+                <section>
+
+                </section>
+                <section>
+
+                </section>
+			</div>
+		</div>
+
+		<script src="revealjs/dist/reveal.js"></script>
+		<script src="revealjs/plugin/notes/notes.js"></script>
+		<script src="revealjs/plugin/markdown/markdown.js"></script>
+		<script src="revealjs/plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
