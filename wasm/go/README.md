@@ -20,7 +20,10 @@ touch src/main.go
 tinygo build -wasm-abi=generic -target=wasi -o target/main.wasm src/main.go
 ```
 
-
+## Build for web
+```
+GOOS=js GOARCH=wasm go build -o static/main.wasm src/web/main.go
+```
     ### Extras
 - https://binx.io/2022/04/22/golang-webassembly/
 
